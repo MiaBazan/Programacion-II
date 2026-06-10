@@ -1,7 +1,7 @@
 package org.example;
 
 @SuppressWarnings("ALL")
-public class Main {
+public class Ejercicios1al10 {
     public static void main(String[] args) {
 
 //        //1. Imprimir N° del 1 al 10 :0
