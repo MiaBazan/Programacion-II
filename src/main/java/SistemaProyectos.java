@@ -59,6 +59,7 @@ public class SistemaProyectos {
 
                     System.out.println("\nTarea procesada. Presiona ENTER para continuar...");
                     sc.nextLine();
+
                     break;
                 case 3:
                     System.out.println("\n--- ACTUALIZAR TAREA ---");

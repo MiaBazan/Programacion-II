@@ -1,4 +1,4 @@
-package org.example;
+package org.Ejercicios1al10;
 
 @SuppressWarnings("ALL")
 public class Ejercicios1al10 {
