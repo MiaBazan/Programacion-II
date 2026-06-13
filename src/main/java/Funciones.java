@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Funciones {
 
         // ===================================================
@@ -39,14 +41,26 @@ public class Funciones {
 
         //5. Mostrar menú. Crear un metodo sin argumentos ni retorno que imprima un menú con varias opciones.
         public static void mostrarMenu() {
-            System.out.println("\n╔══════════════════════════════════════╗");
-            System.out.println("║        MENÚ DE CONFIGURACIÓN         ║");
-            System.out.println("╠══════════════════════════════════════╣");
-            System.out.println("║  [1] Iniciar Aplicación              ║");
-            System.out.println("║  [2] Ajustar Rendimiento             ║");
-            System.out.println("║  [3] Ver Estadísticas de Uso         ║");
-            System.out.println("║  [4] Salir del Programa              ║");
-            System.out.println("╚══════════════════════════════════════╝\n");
+            System.out.println("\n========================================");
+            System.out.println("        PANEL DE EJERCICIOS             ");
+            System.out.println("========================================");
+            System.out.println("  [1] Mostrar saludo fijo             ");
+            System.out.println("  [2] Saludo personalizado            ");
+            System.out.println("  [3] Calcular área rectángulo        ");
+            System.out.println("  [4] Convertir texto a mayúsculas    ");
+            System.out.println("  [5] Mostrar este menú otra vez      ");
+            System.out.println("  [6] Comprobar si número es par      ");
+            System.out.println("  [7] Calcular cuadrado de un número  ");
+            System.out.println("  [8] Calcular factorial recursivo    ");
+            System.out.println("  [9] Sumar múltiples números         ");
+            System.out.println("  [10] Calcular promedio de un array  ");
+            System.out.println("  [11] Buscar un valor en un array    ");
+            System.out.println("  [12] Contar palabras repetidas      ");
+            System.out.println("  [13] Imprimir un array formateado   ");
+            System.out.println("  [14] Invertir un array de enteros   ");
+            System.out.println("  [15] Buscar alumno con mejor nota   ");
+            System.out.println("  [0] Salir del programa              ");
+            System.out.println("========================================");
         }
 
         // ============================================
@@ -113,7 +127,7 @@ public class Funciones {
 
             for (int num : array) {
                 if (num == numeroBuscar) {
-                    return true; // Termina el bucle apenas lo encuentra (optimiza rendimiento)
+                    return true; // Termina el bucle apenas lo encuentra
                 }
             }
             return false;
@@ -171,7 +185,7 @@ public class Funciones {
         //15. Estudiante con mejor nota. Crear un metodo que reciba dos arrays: uno con nombres de estudiantes
         // y otro con sus notas, y devuelva el nombre del estudiante con la mejor nota.
         public static String estudianteConMejorNota(String[] nombres, double[] notas) {
-            // Validación de seguridad para que el programa no se rompa
+            // Validación de seguridad para que el programa no se rompa (que esperemos que ande la vdd-)
             if (nombres == null || notas == null || nombres.length == 0 || nombres.length != notas.length) {
                 return "Error: Datos inconsistentes o vacíos.";
             }
@@ -192,44 +206,200 @@ public class Funciones {
         // --- Pruebas en consola que SÍ andan gracias a Dios- (Metodo Main)
         // ==================================================================
         public static void main(String[] args) {
-            System.out.println("=== INICIANDO PRUEBAS DE FUNCIONES ===");
+            Scanner teclado = new Scanner(System.in);
+            int opcion = -1;
+            boolean imprimirMenucompletamente = true;
 
-            // Probando Nivel 1
-            mostrarSaludo();
-            saludar("   Agus   "); // Probando el recorte de espacios (.trim)
-            System.out.println("Área de rectángulo (base 4.5, altura 10): " + calcularAreaRectangulo(4.5, 10));
-            System.out.println("Texto en mayúsculas: " + convertirAMayusculas("subiendo tareas a github..."));
-            mostrarMenu();
+            do {
+                if (imprimirMenucompletamente) {
+                    mostrarMenu();
+                }
 
-            // Probando Nivel 2
-            System.out.println("¿El número 7 es par?: " + esPar(7));
-            System.out.println("El cuadrado de 8 es: " + calcularCuadrado(8));
-            System.out.println("Factorial de 5: " + factorial(5));
+                System.out.print("Elige una opción (0-15): ");
+                String entradaOpcion = teclado.nextLine();
 
-            // Probando Nivel 3
-            System.out.println("+ Suma múltiple (Varargs): " + sumarNumeros(5, 10, 15, 20, 25));
+                try {
+                    opcion = Integer.parseInt(entradaOpcion.trim());
+                } catch (NumberFormatException e) {
+                    System.out.println("\n----------------------------------------");
+                    System.out.println("Error: Debes ingresar un número válido, no letras.");
+                    System.out.println("----------------------------------------");
+                    imprimirMenucompletamente = false;
+                    continue;
+                }
 
-            double[] notasClase = {8.5, 9.0, 7.5, 10.0};
-            System.out.println("Promedio de notas: " + calcularPromedio(notasClase));
+                System.out.println("\n----------------------------------------");
+                switch (opcion) {
+                    case 1:
+                        mostrarSaludo();
+                        break;
 
-            int[] numerosAzar = {14, 25, 39, 42, 50};
-            System.out.println("¿Está el número 42?: " + buscarValor(numerosAzar, 42));
+                    case 2:
+                        System.out.print("Introduce un nombre para el saludo: ");
+                        String nom = teclado.nextLine();
+                        saludar(nom);
+                        break;
 
-            String[] palabras = {"Java", "Discord", "java", "AIMP", "JAVA"};
-            System.out.println("Ocurrencias de la palabra 'Java': " + contarOcurrencias(palabras, "Java"));
+                    case 3:
+                        try {
+                            System.out.print("Introduce la base del rectángulo: ");
+                            double b = Double.parseDouble(teclado.nextLine());
+                            System.out.print("Introduce la altura del rectángulo: ");
+                            double h = Double.parseDouble(teclado.nextLine());
+                            System.out.println("Resultado -> Área: " + calcularAreaRectangulo(b, h));
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Ingresaste un carácter inválido en las medidas.");
+                        }
+                        break;
 
-            // Probando Nivel 4
-            System.out.print("Array original formateado: ");
-            imprimirArrayFormateado(numerosAzar);
+                    case 4:
+                        System.out.print("Introduce el texto que quieres transformar: ");
+                        String cadena = teclado.nextLine();
+                        System.out.println("Resultado -> " + convertirAMayusculas(cadena));
+                        break;
 
-            int[] arrayInvertido = invertirArray(numerosAzar);
-            System.out.print("Array invertido formateado: ");
-            imprimirArrayFormateado(arrayInvertido);
+                    case 5:
+                        System.out.println("Forzando despliegue del menú...");
+                        imprimirMenucompletamente = true;
+                        System.out.println("----------------------------------------");
+                        continue;
 
-            String[] alumnos = {"Ana", "Pedro", "Sofía", "Carlos"};
-            double[] calificaciones = {8.0, 6.5, 9.8, 7.2};
-            System.out.println("Mejor estudiante: " + estudianteConMejorNota(alumnos, calificaciones));
+                    case 6:
+                        try {
+                            System.out.print("Introduce un número entero: ");
+                            int numPar = Integer.parseInt(teclado.nextLine());
+                            System.out.println("Resultado -> ¿Es par?: " + esPar(numPar));
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: El dato ingresado no es un número entero.");
+                        }
+                        break;
 
-            System.out.println("\n=== PRUEBAS FINALIZADAS CON ÉXITO ===");
+                    case 7:
+                        try {
+                            System.out.print("Introduce un número entero: ");
+                            int numCuad = Integer.parseInt(teclado.nextLine());
+                            System.out.println("Resultado -> El cuadrado es: " + calcularCuadrado(numCuad));
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: El dato ingresado no es un número entero.");
+                        }
+                        break;
+
+                    case 8:
+                        try {
+                            System.out.print("Introduce un número para calcular su factorial: ");
+                            int numFact = Integer.parseInt(teclado.nextLine());
+                            System.out.println("Resultado -> El factorial es: " + factorial(numFact));
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: El dato ingresado no es un número entero.");
+                        }
+                        break;
+
+                    case 9:
+                        System.out.println("Suma con Varargs (ejemplo dinámico interno):");
+                        System.out.println("Enviando (10, 5, 25) -> Suma: " + sumarNumeros(10, 5, 25));
+                        System.out.println("Enviando (1, 2, 3, 4, 5) -> Suma: " + sumarNumeros(1, 2, 3, 4, 5));
+                        break;
+
+                    case 10:
+                        System.out.println("Calculando promedio de un array fijo de prueba {5.5, 7.0, 10.0, 8.5}...");
+                        double[] notasPrueba = {5.5, 7.0, 10.0, 8.5};
+                        System.out.println("Resultado -> Promedio: " + calcularPromedio(notasPrueba));
+                        break;
+
+                    case 11:
+                        try {
+                            int[] baseDatos = {10, 20, 30, 42, 50};
+                            System.out.print("Array disponible: {10, 20, 30, 42, 50}. ¿Qué número deseas buscar?: ");
+                            int buscar = Integer.parseInt(teclado.nextLine());
+                            System.out.println("Resultado -> ¿Encontrado?: " + buscarValor(baseDatos, buscar));
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: El valor a buscar debe ser un número entero.");
+                        }
+                        break;
+
+                    case 12:
+                        String[] listaPalabras = {"Java", "GitHub", "java", "AIMP", "JAVA"};
+                        System.out.print("Introduce la palabra a buscar en el array (ej: Java, AIMP): ");
+                        String claveBuscar = teclado.nextLine();
+                        System.out.println("Resultado -> Aparece " + contarOcurrencias(listaPalabras, claveBuscar) + " veces.");
+                        break;
+
+                    case 13:
+                        System.out.println("Imprimiendo un array de prueba de forma formateada:");
+                        int[] arrayFormato = {4, 8, 15, 16, 23, 42};
+                        System.out.print("Resultado -> ");
+                        imprimirArrayFormateado(arrayFormato);
+                        break;
+
+                    case 14:
+                        try {
+                            System.out.print("¿Cuántos números deseas ingresar en el array?: ");
+                            int cantidad = Integer.parseInt(teclado.nextLine());
+
+                            if (cantidad <= 0) {
+                                System.out.println("Error: La cantidad debe ser mayor a 0.");
+                            } else {
+                                int[] usuarioArray = new int[cantidad];
+                                for (int i = 0; i < cantidad; i++) {
+                                    System.out.print("Ingresa el número para la posición [" + i + "]: ");
+                                    usuarioArray[i] = Integer.parseInt(teclado.nextLine());
+                                }
+
+                                System.out.print("Array original: ");
+                                imprimirArrayFormateado(usuarioArray);
+
+                                int[] invertido = invertirArray(usuarioArray);
+                                System.out.print("Resultado invertido -> ");
+                                imprimirArrayFormateado(invertido);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Ingresaste un dato que no es un número entero válido.");
+                        }
+                        break;
+
+                    case 15:
+                        String[] alumnos = {"Ana", "Pedro", "Sofía", "Carlos"};
+                        double[] calificaciones = {8.0, 6.5, 9.8, 7.2};
+                        System.out.println("Lista: Ana(8.0), Pedro(6.5), Sofía(9.8), Carlos(7.2)");
+                        System.out.println("Resultado de mejor nota -> " + estudianteConMejorNota(alumnos, calificaciones));
+                        break;
+
+                    case 0:
+                        System.out.println("Cerrando el panel de ejercicios. ¡Hasta luego!");
+                        break;
+
+                    default:
+                        System.out.println("Opción inválida. Intenta con un número del 0 al 15.");
+                        break;
+                }
+                System.out.println("----------------------------------------");
+
+                if (opcion != 0) {
+                    String respuesta = "";
+                    boolean respuestaValida = false;
+
+                    while (!respuestaValida) {
+                        System.out.print("¿Deseas volver a ver el menú principal? (S/N): ");
+                        respuesta = teclado.nextLine().trim();
+
+                        if (respuesta.equalsIgnoreCase("S") || respuesta.equalsIgnoreCase("N")) {
+                            respuestaValida = true;
+                        } else {
+                            System.out.println("Error: Opción inválida. Por favor, escribe únicamente 'S' o 'N'.");
+                        }
+                    }
+
+                    if (respuesta.equalsIgnoreCase("S")) {
+                        imprimirMenucompletamente = true;
+                    } else {
+                        opcion = 0;
+                        System.out.println("Cerrando el panel de ejercicios. ¡Hasta luego!");
+                    }
+                    System.out.println();
+                }
+
+            } while (opcion != 0);
+
+            teclado.close();
         }
-    }
+}
